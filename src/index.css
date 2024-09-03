@@ -14,6 +14,7 @@ body {
     --dark: #000;
     --back: #1c1d22;
     --tab: #27272f;
+    --font_hover: #fff;
     --font: #eaeaea;
     --font_tint: #a0a0a0;
     --font_inv: #000;
@@ -72,10 +73,13 @@ body {
     mask-size: cover;
     -webkit-mask-image: var(--svg);
     mask-image: var(--svg);
-    background-color: var(--font);
+    background: var(--font);
     display: inline-block;
     cursor: pointer;
-    margin-left: 8px;
+}
+
+.icon:hover {
+    background: var(--font_hover);
 }
 
 .icon.down {

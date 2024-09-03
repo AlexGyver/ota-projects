@@ -1,4 +1,5 @@
 import { Component } from '@alexgyver/component';
+import "esp-web-tools/dist/web/install-button";
 
 const projects_list = 'https://raw.githubusercontent.com/AlexGyver/ota-projects/main/projects.txt';
 
@@ -49,9 +50,7 @@ export default class App {
                         tag: 'div',
                         class: 'icon down',
                         events: {
-                            click: () => {
-                                this['$' + proj + '_btn'].click();
-                            }
+                            click: () => this['$' + proj + '_btn'].click(),
                         },
                     }
                 ]
@@ -61,13 +60,13 @@ export default class App {
                 context: this,
                 parent: document.body,
                 style: 'display:none',
-                var: proj + '_btn',
                 attrs: {
                     manifest: 'https://raw.githubusercontent.com/AlexGyver/' + proj + '/main/project.json',
                 },
                 child: {
                     tag: 'button',
                     slot: 'activate',
+                    var: proj + '_btn',
                 }
             });
         }
