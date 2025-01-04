@@ -1,5 +1,5 @@
 # AlexGyver OTA
-Веб-сервис для загрузки скомпилированной прошивки на ESP8266/ESP32, работает на основе [ESP Web Tools](https://esphome.github.io/esp-web-tools/)
+Веб-сервис для загрузки скомпилированной прошивки на ESP8266/ESP32, работает на основе [ESP Web Tools](https://esphome.github.io/esp-web-tools/).
 
 Для добавления своему проекту поддержки AlexGyver OTA нужно:
 - Создать репозиторий проекта на GitHub
