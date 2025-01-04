@@ -31,9 +31,10 @@ body {
 }
 
 .header {
-    padding: 10px;
-    font-size: 19px;
-    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 5px;
 }
 
 .main {
@@ -45,7 +46,12 @@ body {
 
 .projects {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    margin-bottom: 10px;
+}
+
+.projects:only-child {
+    grid-template-columns: 1fr 1fr;
 }
 
 .project {
@@ -60,8 +66,14 @@ body {
     user-select: none;
 }
 
+.author {
+    display: block;
+    padding: 3px 5px;
+}
+
 .project_label {
-    cursor: pointer;
+    text-decoration: none;
+    color: var(--font);
 }
 
 .project_label:hover {
@@ -76,6 +88,7 @@ body {
     background: var(--font);
     display: inline-block;
     cursor: pointer;
+    margin-left: 10px;
 }
 
 .icon:hover {
@@ -86,4 +99,40 @@ body {
     --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'%3E%3Cpath d='M144 480a144 144 0 0 1-48-280v-8a160 160 0 0 1 299-80 96 96 0 0 1 143 114 128 128 0 0 1-26 254H144zm79-167 80 80c9 9 25 9 34 0l80-80c9-9 9-25 0-34s-25-9-34 0l-39 39V184a24 24 0 1 0-48 0v134l-39-39c-9-9-25-9-34 0s-9 25 0 34z'/%3E%3C/svg%3E");
     width: 32px;
     height: 24px;
+}
+
+.icon.info {
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--%3E%3Cpath d='M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z'/%3E%3C/svg%3E");
+    width: 25px;
+    height: 25px;
+}
+
+.icon.plus {
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3C!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--%3E%3Cpath d='M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 38.6C310.1 219.5 256 287.4 256 368c0 59.1 29.1 111.3 73.7 143.3c-3.2 .5-6.4 .7-9.7 .7L64 512c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128zm48 96a144 144 0 1 1 0 288 144 144 0 1 1 0-288zm16 80c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 48-48 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l48 0 0 48c0 8.8 7.2 16 16 16s16-7.2 16-16l0-48 48 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-48 0 0-48z'/%3E%3C/svg%3E");
+    width: 28.3px;
+    height: 25px;
+}
+
+.dialog_text {
+    padding: 0 5px;
+    text-align: justify;
+}
+
+.dialog_text ul {
+    padding-left: 20px;
+    margin: 8px 0;
+}
+
+.dialog_text li {
+    line-height: 20px;
+    padding-bottom: 7px;
+}
+
+.dialog_text a {
+    color: var(--accent);
+}
+
+.dialog_text p {
+    margin: 0;
+    margin-bottom: 10px;
 }
