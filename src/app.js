@@ -8,6 +8,7 @@ const projects_list = 'https://raw.githubusercontent.com/AlexGyver/ota-projects/
 const info_html = md.render(`
 Установка прошивок проектов на ESP8266/ESP32 с GitHub:
 - Название проекта ведёт на репозиторий проекта на GitHub
+- Наведение на название - описание проекта, наведение на версию - описание изменений версии
 - Кнопка установки запускает процесс прошивки по USB
 
 Для загрузки прошивки должен быть установлен драйвер на CH34x, если он ещё не установлен - нажмите на кнопку установки любого проекта, затем **отмена** - появится окошко со ссылками на драйверы для всех ОС. Установите драйвер, подключите плату к ПК, запустите установку и выберите COM порт, к которому подключена плата.
@@ -132,11 +133,23 @@ export default class App {
             class: 'project',
             children: [
                 {
-                    tag: 'a',
-                    class: 'project_label',
-                    html: name + `<sup>v${pjson.version}</sup>`,
-                    href: `https://github.com/${auth}/${name}`,
-                    target: '_blank',
+                    tag: 'span',
+                    children: [
+                        {
+                            tag: 'a',
+                            title: pjson.about ?? '',
+                            html: pjson.name,
+                            class: 'project_label',
+                            href: `https://github.com/${auth}/${name}`,
+                            target: '_blank',
+                        },
+                        {
+                            tag: 'sup',
+                            style: 'padding-left: 2px',
+                            text: `v${pjson.version}`,
+                            title: pjson.notes ?? '',
+                        }
+                    ]
                 },
                 {
                     tag: 'div',
