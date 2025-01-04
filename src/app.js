@@ -136,6 +136,7 @@ export default class App {
                     class: 'project_label',
                     html: name + `<sup>v${pjson.version}</sup>`,
                     href: `https://github.com/${auth}/${name}`,
+                    target: '_blank',
                 },
                 {
                     tag: 'div',
