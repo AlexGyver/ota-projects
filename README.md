@@ -130,3 +130,36 @@ https://github.com/<аккаунт>/<проект>/releases/latest/download/<ф�
 ```
 https://github.com/GyverLibs/GyverHub-example/releases/latest/download/firmware.bin
 ```
+
+## Разработка под несколько платформ
+Чтобы определить платформу внутри программы, используем следующие проверки:
+
+```cpp
+#if CONFIG_IDF_TARGET_ESP32
+// ESP32
+#endif
+
+#if CONFIG_IDF_TARGET_ESP32S2
+// ESP32-S2
+#endif
+
+#if CONFIG_IDF_TARGET_ESP32S3
+// ESP32-S3
+#endif
+
+#if CONFIG_IDF_TARGET_ESP32C3
+// ESP32-C3"
+#endif
+
+#if CONFIG_IDF_TARGET_ESP32C6
+// ESP32-C6
+#endif
+
+#if CONFIG_IDF_TARGET_ESP32H2
+// ESP32-H2
+#endif
+
+#if defined(ESP8266)
+// ESP8266
+#endif
+```
