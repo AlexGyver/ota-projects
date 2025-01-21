@@ -76,6 +76,11 @@ body {
     color: var(--font);
 }
 
+.project_title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .project_label:hover {
     text-decoration: underline;
 }

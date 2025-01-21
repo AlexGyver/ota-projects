@@ -75,6 +75,7 @@ export default class App {
             projects = await fetch(projects_list, { cache: "no-store" });
             projects = await projects.text();
         } catch (e) {
+            console.log(e);
             return;
         }
         if (localStorage.hasOwnProperty('projects')) {
@@ -124,6 +125,7 @@ export default class App {
             pjson = await fetch(manifest, { cache: "no-store" });
             pjson = await pjson.json();
         } catch (e) {
+            console.log(e);
             return;
         }
 
@@ -134,6 +136,7 @@ export default class App {
             children: [
                 {
                     tag: 'span',
+                    class: 'project_title',
                     children: [
                         {
                             tag: 'a',
