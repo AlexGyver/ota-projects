@@ -71,32 +71,6 @@ https://github.com/<аккаунт>/<проект>/releases/latest/download/<ф�
 https://github.com/GyverLibs/GyverHub-example/releases/latest/download/firmware.bin
 ```
 
-> [!WARNING]
-> Бинарник из релизов на данный момент не работает
-
-### ESP32
-Для ESP32 нужны 4 файла: bootloader.bin, partitions.bin, firmware.bin, boot_app0.bin. Первые три генерируются при компиляции, четвёртый лежит локально:
-
-- Arduino IDE: `Arduino15/packages/esp32/hardware/esp32/<version>/tools/partitions/boot_app0.bin`
-- PlatformIO: `.platformio/packages/framework-arduinoespressif32/tools/partitions/boot_app0.bin`
-
-Итого для ESP32 нужно указать все 4 файла:
-
-```
-"parts": [
-  { "path": "bootloader.bin", "offset": 4096 },
-  { "path": "partitions.bin", "offset": 32768 },
-  { "path": "boot_app0.bin", "offset": 57344 },
-  { "path": "firmware.bin", "offset": 65536 }
-]
-```
-
-Как пример - мой [тестовый репозиторий](https://github.com/GyverLibs/testota). Подробнее можно прочитать [здесь](https://github.com/witnessmenow/ESP-Web-Tools-Tutorial).
-
-Также можно объединить файлы в программе ESP Flash Tool и указать `"offset": 0` у общего бинарника в манифесте:
-
-![combine](docs/combine.jpg)
-
 ## Разработка под несколько платформ
 Чтобы определить платформу внутри программы, используем следующие проверки:
 
