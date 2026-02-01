@@ -4,7 +4,7 @@ import { AsyncConfirm, AsyncPrompt } from './dialog';
 import markdownit from 'markdown-it'
 const md = markdownit();
 
-const projects_list = 'https://raw.githubusercontent.com/AlexGyver/ota-projects/main/projects.txt';
+const projects_list = 'https://raw.githubusercontent.com/AlexGyver/ota-projects/refs/heads/main/projects.txt';
 const info_html = md.render(`
 Установка прошивок проектов на ESP8266/ESP32 с GitHub:
 - Название проекта ведёт на репозиторий проекта на GitHub

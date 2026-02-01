@@ -1,4 +1,4 @@
-"use strict";(self.webpackChunkota_gyver=self.webpackChunkota_gyver||[]).push([[162],{162:(e,t,o)=>{o.r(t),o.d(t,{openNoPortPickedDialog:()=>a});var i=o(258);const l=i.w`
+"use strict";(self.webpackChunkota_gyver=self.webpackChunkota_gyver||[]).push([[741],{741(e,t,o){o.d(t,{openNoPortPickedDialog:()=>a});var i=o(582);const l=i.w`
   <svg
     version="1.1"
     id="Capa_1"
@@ -17,7 +17,7 @@
       />
     </g>
   </svg>
-`;let n=class extends i.r{render(){const e=(()=>{var e,t;const o=window.navigator.userAgent,i=(null===(t=null===(e=window.navigator)||void 0===e?void 0:e.userAgentData)||void 0===t?void 0:t.platform)||window.navigator.platform;return-1!==["macOS","Macintosh","MacIntel","MacPPC","Mac68K"].indexOf(i)?"Mac OS":-1!==["iPhone","iPad","iPod"].indexOf(i)?"iOS":-1!==["Win32","Win64","Windows","WinCE"].indexOf(i)?"Windows":/Android/.test(o)?"Android":/Linux/.test(i)?"Linux":null})();return i.x`
+`;let n=class extends i.i{render(){const e=(()=>{var e,t;const o=window.navigator.userAgent,i=(null===(t=null===(e=window.navigator)||void 0===e?void 0:e.userAgentData)||void 0===t?void 0:t.platform)||window.navigator.platform;return-1!==["macOS","Macintosh","MacIntel","MacPPC","Mac68K"].indexOf(i)?"Mac OS":-1!==["iPhone","iPad","iPod"].indexOf(i)?"iOS":-1!==["Win32","Win64","Windows","WinCE"].indexOf(i)?"Windows":/Android/.test(o)?"Android":/Linux/.test(i)?"Linux":null})();return i.x`
       <ew-dialog open @closed=${this._handleClose}>
         <div slot="headline">No port selected</div>
         <div slot="content">
@@ -112,7 +112,7 @@
               `}
         </div>
       </ew-dialog>
-    `}tryAgain(){var e;this.close(),null===(e=this.doTryAgain)||void 0===e||e.call(this)}close(){this.shadowRoot.querySelector("ew-dialog").close()}async _handleClose(){this.parentNode.removeChild(this)}};n.styles=[i.y,i.i`
+    `}tryAgain(){var e;this.close(),null===(e=this.doTryAgain)||void 0===e||e.call(this)}close(){this.shadowRoot.querySelector("ew-dialog").close()}async _handleClose(){this.parentNode.removeChild(this)}};n.styles=[i.y,i.a`
       li + li,
       li > ul {
         margin-top: 8px;
