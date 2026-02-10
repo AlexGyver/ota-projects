@@ -1,11 +1,11 @@
 import "esp-web-tools/dist/web/install-button";
-import { Component } from '@alexgyver/component';
+import { EL } from '@alexgyver/component';
 import { AsyncConfirm, AsyncPrompt } from './dialog';
-import markdownit from 'markdown-it'
-const md = markdownit();
+import { LS, parseMD } from "@alexgyver/utils";
 
 const projects_list = 'https://raw.githubusercontent.com/AlexGyver/ota-projects/refs/heads/main/projects.txt';
-const info_html = md.render(`
+
+const info_html = parseMD(`
 Установка прошивок проектов на ESP8266/ESP32 с GitHub:
 - Название проекта ведёт на репозиторий проекта на GitHub
 - Наведение на название - описание проекта, наведение на версию - описание изменений версии
@@ -20,11 +20,11 @@ const info_html = md.render(`
 
 export default class App {
     constructor() {
-        Component.make('div', {
+        EL.make('div', {
             parent: document.body,
             context: this,
             class: 'main',
-            var: 'main',
+            $: 'main',
             children: [
                 {
                     tag: 'div',
@@ -41,23 +41,19 @@ export default class App {
                                 {
                                     tag: 'div',
                                     class: 'icon info',
-                                    events: {
-                                        click: async () => {
-                                            await AsyncConfirm('AlexGyver OTA', Component.make('div', { html: info_html, class: 'dialog_text' }));
-                                        }
+                                    onClick: async () => {
+                                        await AsyncConfirm('AlexGyver OTA', EL.make('div', { html: info_html, class: 'dialog_text' }));
                                     }
                                 },
                                 {
                                     tag: 'div',
                                     class: 'icon plus',
-                                    events: {
-                                        click: async () => {
-                                            let projects = localStorage.getItem('projects');
-                                            let res = await AsyncPrompt('Добавить проекты', projects);
-                                            if (res) {
-                                                localStorage.setItem('projects', res);
-                                                location.reload();
-                                            }
+                                    onClick: async () => {
+                                        let projects = LS.get('projects');
+                                        let res = await AsyncPrompt('Добавить проекты', projects);
+                                        if (res) {
+                                            LS.set('projects', res);
+                                            location.reload();
                                         }
                                     }
                                 }
@@ -78,10 +74,10 @@ export default class App {
             console.log(e);
             return;
         }
-        if (localStorage.hasOwnProperty('projects')) {
-            projects += '\r\n' + localStorage.getItem('projects');
+        if (LS.has('projects')) {
+            projects += '\r\n' + LS.get('projects');
         }
-        projects = projects.split(/\r?\n/);
+        projects = projects.trim().split(/\r?\n/).map(extractRepo);
 
         for (let proj of projects) {
             this.loadProject(proj);
@@ -90,19 +86,20 @@ export default class App {
 
     async loadProject(proj) {
         if (!proj) return;
+
         proj = proj.split('/');
         if (proj.length != 2) return;
 
-        let auth = proj[0], name = proj[1];
+        let [auth, name] = proj;
 
         if (!(auth in this.projects)) {
             this.projects[auth] = {};
 
-            Component.make('div', {
+            EL.make('div', {
                 context: this.projects[auth],
                 parent: this.$main,
                 children: [
-                    (auth == 'AlexGyver') ? null : {
+                    (auth != 'AlexGyver') && {
                         tag: 'span',
                         text: auth,
                         class: 'author',
@@ -110,13 +107,14 @@ export default class App {
                     {
                         tag: 'div',
                         class: 'projects',
-                        var: 'root',
+                        $: 'projects',
                     }
                 ]
             });
         }
 
         if (name in this.projects[auth]) return;
+
         this.projects[auth][name] = {};
         let manifest = `https://raw.githubusercontent.com/${auth}/${name}/main/project.json`;
 
@@ -129,9 +127,9 @@ export default class App {
             return;
         }
 
-        let proj_cont = Component.make('div', {
+        let proj_cont = EL.make('div', {
             context: this,
-            parent: this.projects[auth]['$root'],
+            parent: this.projects[auth]['$projects'],
             class: 'project',
             children: [
                 {
@@ -140,7 +138,7 @@ export default class App {
                     children: [
                         {
                             tag: 'a',
-                            title: pjson.about ?? '',
+                            title: pjson.about,
                             html: pjson.name,
                             class: 'project_label',
                             href: `https://github.com/${auth}/${name}`,
@@ -150,21 +148,19 @@ export default class App {
                             tag: 'sup',
                             style: 'padding-left: 2px',
                             text: `v${pjson.version}`,
-                            title: pjson.notes ?? '',
+                            title: pjson.notes,
                         }
                     ]
                 },
                 {
                     tag: 'div',
                     class: 'icon down',
-                    events: {
-                        click: () => this.projects[auth][name]['$button'].click(),
-                    },
+                    onClick: () => this.projects[auth][name]['$button'].click(),
                 }
             ]
         });
 
-        Component.make('esp-web-install-button', {
+        EL.make('esp-web-install-button', {
             context: this.projects[auth][name],
             parent: proj_cont,
             style: 'display:none',
@@ -174,10 +170,15 @@ export default class App {
             child: {
                 tag: 'button',
                 slot: 'activate',
-                var: 'button',
+                $: 'button',
             }
         });
     }
 
     projects = {};
+}
+
+function extractRepo(str) {
+    const match = str.match(/(?:https?:\/\/github\.com\/)?(.+\/.+)/);
+    return match ? match[1] : null;
 }

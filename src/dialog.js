@@ -1,27 +1,36 @@
-import { Component } from "@alexgyver/component";
+import { EL } from "@alexgyver/component";
 import './dialog.css';
 
 export class DialogCont {
     constructor() {
-        Component.make('div', {
-            context: this,
-            var: 'root',
-            class: 'dialog_back',
-            style: 'animation: fadeIn 0.16s;',
+        this.root = EL.make('div', {
             parent: document.body,
+            class: 'dialog_back',
+            style: {
+                opacity: 0
+            },
+            animate: {
+                opacity: 1,
+                duration: 300,
+            },
         });
     }
 
-    destroy() {
-        this.$root.style.animation = 'fadeOut 0.16s';
-        setTimeout(() => this.$root.remove(), 150);
+    close() {
+        this.root.update({
+            animate: {
+                opacity: 0,
+                duration: 300,
+                onEnd: (e) => e.el.remove(),
+            },
+        });
     }
 }
 
 export function BaseDialog(label, content, actionOK, actionCancel, postbuild = null) {
     let dialog = new DialogCont();
 
-    Component.config(dialog.$root, {
+    EL.update(dialog.root, {
         child: {
             tag: 'div',
             class: 'dialog_cont',
@@ -42,11 +51,9 @@ export function BaseDialog(label, content, actionOK, actionCancel, postbuild = n
                                 tag: 'div',
                                 class: 'button',
                                 text: 'OK',
-                                events: {
-                                    click: () => {
-                                        actionOK();
-                                        dialog.destroy();
-                                    },
+                                onClick: () => {
+                                    actionOK();
+                                    dialog.close();
                                 },
                             },
                             {
@@ -58,11 +65,9 @@ export function BaseDialog(label, content, actionOK, actionCancel, postbuild = n
                                 class: 'button',
                                 style: 'background: var(--error)',
                                 text: 'Cancel',
-                                events: {
-                                    click: () => {
-                                        actionCancel();
-                                        dialog.destroy();
-                                    },
+                                onClick: () => {
+                                    actionCancel();
+                                    dialog.close();
                                 },
                             }
                         ]
@@ -71,22 +76,21 @@ export function BaseDialog(label, content, actionOK, actionCancel, postbuild = n
             }
         }
     });
+
     if (postbuild) postbuild();
 }
 
 export function AsyncPrompt(label, value) {
-    return new Promise(resolve => {
-        let area = Component.make('textarea', {
-            text: value ?? '',
+    return new Promise(res => {
+        let area = EL.make('textarea', {
+            text: value,
             rows: 1,
-            events: {
-                input: () => {
-                    area.style.height = area.scrollHeight + "px";
-                },
-            }
+            onInput: () => {
+                area.style.height = area.scrollHeight + "px";
+            },
         });
 
-        BaseDialog(label, area, () => resolve(area.value), () => resolve(null), () => {
+        BaseDialog(label, area, () => res(area.value), () => res(null), () => {
             area.focus();
             area.setSelectionRange(area.value.length, area.value.length);  // cursor end
             area.style.height = area.scrollHeight + "px";
@@ -95,7 +99,7 @@ export function AsyncPrompt(label, value) {
 }
 
 export function AsyncConfirm(label, content) {
-    return new Promise(resolve => {
-        BaseDialog(label, content, () => resolve(1), () => resolve(0));
+    return new Promise(res => {
+        BaseDialog(label, content, () => res(1), () => res(0));
     });
 }
