@@ -9,7 +9,7 @@ export class DialogCont {
             style: {
                 opacity: 0
             },
-            animate: {
+            transition: {
                 opacity: 1,
                 duration: 300,
             },
@@ -18,7 +18,7 @@ export class DialogCont {
 
     close() {
         this.root.update({
-            animate: {
+            transition: {
                 opacity: 0,
                 duration: 300,
                 onEnd: (e) => e.el.remove(),
