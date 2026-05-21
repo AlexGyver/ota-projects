@@ -22,7 +22,7 @@ export default class App {
     constructor() {
         EL.make('div', {
             parent: document.body,
-            context: this,
+            ctx: this,
             class: 'main',
             $: 'main',
             children: [
@@ -96,7 +96,7 @@ export default class App {
             this.projects[auth] = {};
 
             EL.make('div', {
-                context: this.projects[auth],
+                ctx: this.projects[auth],
                 parent: this.$main,
                 children: [
                     (auth != 'AlexGyver') && {
@@ -128,7 +128,7 @@ export default class App {
         }
 
         let proj_cont = EL.make('div', {
-            context: this,
+            ctx: this,
             parent: this.projects[auth]['$projects'],
             class: 'project',
             children: [
@@ -161,7 +161,7 @@ export default class App {
         });
 
         EL.make('esp-web-install-button', {
-            context: this.projects[auth][name],
+            ctx: this.projects[auth][name],
             parent: proj_cont,
             style: 'display:none',
             attrs: {
