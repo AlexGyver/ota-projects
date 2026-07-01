@@ -1,5 +1,6 @@
 import './index.css'
 import App from './app';
+import { registerSW } from './registerSW';
 
 if (USE_SW) {
     registerSW();
