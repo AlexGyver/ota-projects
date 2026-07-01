@@ -5,7 +5,7 @@
     "start_url": ".",
     "name": "@name",
     "short_name": "@name",
-    "description": "@descr",
+    "description": "@description",
     "orientation": "portrait",
     "icons": [
         {

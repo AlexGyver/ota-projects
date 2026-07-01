@@ -1,11 +1,8 @@
 const path = require('path');
-var PACKAGE = require('./package.json');
+const webpack = require("webpack");
+const PACKAGE = require('./package.json');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const HTMLInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin").default;
-const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -14,17 +11,8 @@ module.exports = {
 
     output: {
         filename: 'script.js',
-        path: path.resolve(__dirname, 'dist/single'),
+        path: path.resolve(__dirname, 'dev'),
         clean: true,
-        publicPath: '',
-    },
-
-    optimization: {
-        minimize: true,
-        minimizer: [
-            new CssMinimizerPlugin(),
-            new TerserPlugin(),
-        ],
     },
 
     module: {
@@ -35,6 +23,10 @@ module.exports = {
                     MiniCssExtractPlugin.loader,
                     "css-loader"
                 ]
+            },
+            {
+                test: /favicon\.svg$/,
+                type: 'asset/resource',
             }
         ]
     },
@@ -46,15 +38,27 @@ module.exports = {
             inject: true,
             minify: false,
             version: PACKAGE.version,
-        }),
-        new HtmlInlineScriptPlugin({
-            htmlMatchPattern: [/index.html$/],
+            title: PACKAGE.title,
         }),
         new MiniCssExtractPlugin({
             filename: 'style.css',
         }),
-        new HTMLInlineCSSWebpackPlugin(),
+        new webpack.DefinePlugin({
+            APP_VER: JSON.stringify(PACKAGE.version),
+            USE_SW: JSON.stringify(false),
+        }),
     ],
 
-    mode: 'production',
+    devServer: {
+        watchFiles: ['src/*.html'],
+        static: path.resolve(__dirname, './dev'),
+        hot: true,
+        open: true,
+    },
+
+    watchOptions: {
+        poll: 1000,
+    },
+
+    mode: 'development',
 };

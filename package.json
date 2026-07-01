@@ -1,37 +1,37 @@
 {
-  "name": "ota-gyver",
-  "title": "AlexGyver OTA",
-  "descr": "OTA projects",
-  "theme_color": "#478be6",
-  "background_color": "#1C2128",
-  "version": "1.0.5",
-  "main": "index.js",
-  "scripts": {
-    "build": "webpack --config ./webpack.host.config.js",
-    "dev": "webpack serve --config ./webpack.dev.config.js & webpack --config ./webpack.dev.config.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "copy-webpack-plugin": "^14.0.0",
-    "css-loader": "^7.1.4",
-    "css-minimizer-webpack-plugin": "^8.0.0",
-    "cyrillic-to-translit-js": "^3.2.1",
-    "html-inline-css-webpack-plugin": "^1.11.2",
-    "html-inline-script-webpack-plugin": "^3.2.1",
-    "html-webpack-plugin": "^5.6.7",
-    "mini-css-extract-plugin": "^2.10.2",
-    "replace-hash-in-file-webpack-plugin": "^1.0.8",
-    "style-loader": "^4.0.0",
-    "webpack": "^5.107.0",
-    "webpack-cli": "^7.0.2",
-    "webpack-dev-server": "^5.2.4"
-  },
-  "dependencies": {
-    "@alexgyver/component": "^2.1.0",
-    "@alexgyver/utils": "^1.2.9",
-    "esp-web-tools": "^10.2.1"
-  }
+    "name": "ota-gyver",
+    "title": "AlexGyver OTA",
+    "descr": "OTA projects",
+    "theme_color": "#478be6",
+    "background_color": "#1C2128",
+    "version": "1.0.6",
+    "main": "index.js",
+    "scripts": {
+        "build_docs": "webpack --config ./webpack.docs.js",
+        "build_single": "webpack --config ./webpack.single.js",
+        "dev": "webpack serve --config ./webpack.dev.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "devDependencies": {
+        "webpack": "^5.107.2",
+        "webpack-cli": "^7.0.3",
+        "webpack-dev-server": "^5.2.4",
+        "css-loader": "^7.1.4",
+        "html-webpack-plugin": "^5.6.7",
+        "copy-webpack-plugin": "^14.0.0",
+        "terser-webpack-plugin": "^5.6.1",
+        "mini-css-extract-plugin": "^2.10.2",
+        "css-minimizer-webpack-plugin": "^8.0.0",
+        "html-inline-css-webpack-plugin": "^1.11.2",
+        "html-inline-script-webpack-plugin": "^3.2.1",
+        "replace-hash-in-file-webpack-plugin": "^1.0.8"
+    },
+    "dependencies": {
+        "@alexgyver/component": "^2.1.5",
+        "@alexgyver/utils": "^1.2.17",
+        "esp-web-tools": "^10.2.1"
+    }
 }
